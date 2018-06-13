@@ -7,14 +7,16 @@ path = require('path'),
 cookieParser = require('cookie-parser'),
 logger = require('morgan');
 
+db();
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var createRouter = require('./routes/create');
 var editRouter = require('./routes/edit');
 var deleteRouter = require('./routes/delete');
 
-
- 
+var port = process.env.PORT || 8080;
 var app = express();
 
 // view engine setup
@@ -29,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.post('/create', createRouter);
-app.put('/edit', editRouter);
+app.use('/create', createRouter);
+app.use('/edit', editRouter);
 //app.delete('/delete', deleteRouter);
 
 // catch 404 and forward to error handler
@@ -48,5 +50,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(port);
+console.log('Magic happens on port ' + port);
 
 module.exports = app;

@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-var documentdata = require('../documents');
-exports.create = function (req, res) {
-	documentdata.create(function (err, create) {
-		res.create('create', {
-			title: req.documentdata.dtitle,
-			body: req.documentdata.dbody
+var Document = require('../documents');
+exports.create = function (req, res, next) {
+	var document = new Document();
+	document.createDocument(function (err, createdocument) {
+		res.createdocument('create', {
+			title: req.document.title,
+			body: req.document.body
 		});
 	});
+	next();
 };
 
 module.exports = router;

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');  
 
-exports.allDocuments = function document(dtitle, dbody, callback) {  
+exports.allDocuments = function(dtitle, dbody, callback) {  
   var Document = mongoose.model('Document');
   Document.find({
     'title': dtitle,
@@ -14,3 +14,39 @@ exports.allDocuments = function document(dtitle, dbody, callback) {
     }
   }); // end Document.find 
 }; // end exports.allDocuments
+exports.createDocument = function(dtitle, dbody, callback){
+  var Document = mongoose.model('Document');
+  Document.create({
+    'title': dtitle,
+    'body': dbody
+  }, function(err, document){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(document);
+      callback("", document);
+    }
+  });
+};
+exports.findDocumentById = function(dtitle, dbody, callback){
+  var Document = mongoose.model('Document');
+  Document.findById(id, function(err, document){
+    if(err){
+      console.log(err);
+    } else{
+      console.log(document);
+      callback("", document);
+    }
+  });
+};
+exports.deleteDocumentById = function(dtitle, dbody, callback){
+  var Document = mongoose.model('Document');
+  Document.deleteOne(id, function(err, document){
+    if(err){
+      console.log(err);
+    }else{
+      console.log(document.id);
+      callback("", document);
+    }
+  })
+};

@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-var documentdata = require('../documents');
+var Document = require('../documents');
 exports.edit = function (req, res) {
-	documentdata.edit(function (err, edit) {
-		res.edit('edit', {
-			title: req.documentdata.dtitle,
-			body: req.documentdata.dbody
+	Document.editDocumentById(function (err, findDocumentById) {
+		res.findDocumentById('edit', {
+			title: req.Document.title,
+			body: req.Document.body
 		});
 	});
+	next();
 };
 
 module.exports = router;
